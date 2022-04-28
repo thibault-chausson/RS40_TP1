@@ -182,7 +182,7 @@ print(dechif)
 
 print("Passons au déchiffrement par le CRT")
 dechiffreCRT=CRT(x1a,x2a,da, chif)
-print("Alice chiffre son fameux message avec la clé de Bob, ce qui donne : ")
+print("Alice déchiffre son fameux message avec la clé de Bob, ce qui donne : ")
 print(home_int_to_string(dechiffreCRT))
 
 print("*******************************************************************")
