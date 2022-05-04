@@ -5,13 +5,9 @@ Created on Fri Apr 17 13:44:40 2020
 @author: Mr ABBAS-TURKI
 """
 
-
-##Ok il y a un problème dans l'exécution de home_mod_expnoent car db est un tuple et non un entier
-
 import hashlib
 import binascii
-
-
+import math
 
 
 def home_mod_expnoent(x, y, n):  # exponentiation modulaire (on prend x puissance y)
@@ -60,15 +56,15 @@ def home_int_to_string(x):  # pour transformer un int en string
     return txt
 
 
-def mot10char():  # entrer le secret
-    secret = input("donner un secret de 10 caractères au maximum : ")
-    while (len(secret) > 11):
+def mot10char(q,p):  # entrer le secret
+    secret = input("donner un secret de log_2(n) caractères au maximum : ")
+    while (len(secret) > math.log2(q*p)):
         secret = input("c'est beaucoup trop long, 10 caractères S.V.P : ")
     return (secret)
 
 
 
-#Pour le reste chinois
+##Pour le reste chinois
 
 def calculPreliminaire(xi, xj,d):
     n=xi*xj
@@ -93,11 +89,6 @@ def CRT(xi,xj, d, c): #c correspond au message
     return m
 
 
-#chiffreCRT=CRT(137,131,11787,8363)
-
-#print("Bob chiffre son fameux message, ce qui donne : ", chiffreCRT)
-
-#x = input("appuyer sur entrer")
 
 
 ##On va sur bigprimes.org et on utilise 60 carractères pour sha256
@@ -147,7 +138,7 @@ print("*******************************************************************")
 print("il est temps de lui envoyer votre secret ")
 print("*******************************************************************")
 x = input("appuyer sur entrer")
-secret = mot10char()
+secret = mot10char(x1a,x2b)
 print("*******************************************************************")
 print("voici la version en nombre décimal de ", secret, " : ")
 num_sec = home_string_to_int(secret)
@@ -189,6 +180,11 @@ print("*******************************************************************")
 print("Alice déchiffre la signature de Bob \n", signe, "\n ce qui donne  en décimal")
 designe = home_mod_expnoent(signe, eb, nb)
 print(designe)
+
+print("Alice déchiffre la signature CRT de Bob \n", signe2, "\n ce qui donne  en décimal")
+designe2 = home_mod_expnoent(signe2, eb, nb)
+print(designe2)
+
 print("Alice vérifie si elle obtient la même chose avec le hash de ", dechif)
 Ahachis0 = hashlib.sha256(dechif.encode(encoding='UTF-8', errors='strict')).digest()
 Ahachis1 = binascii.b2a_uu(Ahachis0)
@@ -200,3 +196,16 @@ if (Ahachis3 - designe == 0):
     print("Alice : Bob m'a envoyé : ", dechif)
 else:
     print("oups")
+
+
+print("La différence pour le CRT =", Ahachis3 - designe2)
+if (Ahachis3 - designe2 == 0):
+    print("Alice : Bob m'a envoyé : ", dechif)
+else:
+    print("oups")
+
+
+
+
+
+##k minimum 32 octets
