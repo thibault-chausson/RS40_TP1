@@ -56,10 +56,10 @@ def home_int_to_string(x):  # pour transformer un int en string
     return txt
 
 
-def mot10char(q,p):  # entrer le secret
-    secret = input("donner un secret de log_2(n) caractères au maximum : ")
-    while (len(secret) > math.log2(q*p)):
-        secret = input("c'est beaucoup trop long, 10 caractères S.V.P : ")
+def mot10char():  # entrer le secret
+    secret = input("donner un secret de 32 caractères au maximum : ")
+    while (len(secret) > 32):
+        secret = input("c'est beaucoup trop long, 32 caractères S.V.P : ")
     return (secret)
 
 
@@ -138,7 +138,7 @@ print("*******************************************************************")
 print("il est temps de lui envoyer votre secret ")
 print("*******************************************************************")
 x = input("appuyer sur entrer")
-secret = mot10char(x1a,x2b)
+secret = mot10char()
 print("*******************************************************************")
 print("voici la version en nombre décimal de ", secret, " : ")
 num_sec = home_string_to_int(secret)
